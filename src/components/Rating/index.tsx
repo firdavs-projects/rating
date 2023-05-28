@@ -1,4 +1,4 @@
-import {ChangeEvent, FC, useEffect, useState} from "react";
+import React, {ChangeEvent, FC, useEffect, useState} from "react";
 import {Button, Select, UserList} from "../index";
 import {getRandomUsers, IParams} from "../../api";
 import {useSearchParams} from "react-router-dom";
