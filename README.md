@@ -1,46 +1,41 @@
-# Getting Started with Create React App
+# Интерфейс системы оценки / бана / поощрений пользователей
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Задание
+Сделать интерфейс системы оценки пользователей: подсчёта количества нарушений и полезных действий на сайте.
 
-## Available Scripts
+Визуально он состоит из двух частей:
+- список пользователей (запрашивается с бэкенда, [public api](https://random-data-api.com/api/users/random_user?size=3), можно взять другое API, которое нравится);
+- список пользователей с оценками: положительными и отрицательными.
 
-In the project directory, you can run:
+Пользователь интерфейса может взаимодействовать с этими списками, изменяя оценки.
 
-### `yarn start`
+В левой колонке список пользователей, для управления списком есть две кнопки:
+- обновить список (старые пользователи исчезнут, новые появятся);
+- следующая страница (старые пользователи остаются в списке, новые добавляются ниже).
+  > (предложенное API каждый раз отдаёт случайные данные, но можно имитировать запрос новой страницы, добавляя GET-параметр `page=N` в запрос)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Рядом с каждой записью (пользователем) есть кнопки изменения рейтинга: `+` и `-`. При нажатии на одну из кнопок, выбранная запись попадает в соответствующую вкладку правой колонки (из левого списка удаляется) — эта вкладка должна стать активной, если не была.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Правая колонка содержит две вкладки с похожими списками. Записи в этих списках отличаются от записей в левой колонке тем, что у них есть значение (целое число), отображающее текущий рейтинг пользователя. В этом списке так же кнопками `+` и `-` можно менять рейтинг пользователя. При установлении рейтинга в значение 0, в строку добавляется кнопка удаления пользователя из текущего списка и возвращения его в левый список.
 
-### `yarn test`
+Границы рейтинга: (-5;5]. При достижении граничного значения должно появляться модальное окно с подтверждением:
+- Нижняя граница: "Пора забанить {username}. Сделать это?"
+- Верхняя граница: "Нужно вознаградить {username}. Сделать это?"
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+По нажатию кнопки "Да" пользователь удаляется из правой колонки и возвращается в левую, можно начать с ним работать заново.
 
-### `yarn build`
+## Требования
+- Каждое действие пользователя должно логироваться (в текущей реализации - просто в консоль)
+- Разработка ведётся на фреймворке React, с использованием языка Typescript.
+- Присутствуют юнит-тесты (не обязательно покрывать всё, но хотя бы основные должны быть).
+- Отдельным плюсом будет использование [БЭМ-методологии](https://ru.bem.info/methodology/quick-start/).
+- Ещё одним плюсом будут комментарии в коде.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Опционально
+- При перезагрузке страницы последнее состояние восстанавливается.
+- Адаптация под мобильные устройства.
+- Дополнительная функциональность — по желанию.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Дизайн
+- Можно использовать библиотеки готовых компонентов.
+- Мы оценим, если интерфейс будет удобным и приятным.
