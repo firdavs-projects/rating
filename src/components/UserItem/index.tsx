@@ -81,7 +81,7 @@ const UserItem:FC<IProps> = ({ user, replace, save, isRating }) => {
                 </div>
                 <Modal show={!!modal}>
                     <p className="text-gray-700 text-center">
-                        {Number(modal?.rating) >= 5
+                        {Number(modal?.rating) > 0
                             ? `Нужно вознаградить ${modal?.username}. Сделать это?`
                             : `Пора забанить @${modal?.username}. Сделать это?`}
                     </p>
